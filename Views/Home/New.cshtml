@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+
+@using beltExam.Models
+@model Activity
+
+<body>
+	<div id="top">
+		<h1 class="top">Dojo Activity Center</h1>
+		<nav>
+			<li><a asp-action="Show">Home</a></li>
+			<li><a asp-action="Logout">Logout</a></li>
+		</nav>
+		<p>____________________________________________________</p>
+	</div>
+	<h2>Create an Activity</h2>
+	<br><br>
+	<div class="form-group">
+		<form asp-action="AddActivity" asp-controller="Home" method="POST">
+			<div class="form-group">
+				<input asp-for="UserId" type="hidden" value="@ViewBag.UserId">
+			</div>
+			<div class="form-group">
+				<label asp-for="Title"></label>
+				<input asp-for="Title">
+				<span asp-validation-for="Title" class="error"></span><br><br>
+			</div>
+			<div class="form-group">
+				<label asp-for="Date"></label>
+				<input type="date" asp-for="Date"><br>
+				<p class="error">@ViewBag.DateErrors</p>
+				<span asp-validation-for="Date" class="error"></span><br>
+			</div>
+			<div class="form-group">
+				<label asp-for="Coordinator"></label>
+				<input asp-for="Coordinator">
+				<span asp-validation-for="Coordinator" class="error"></span><br><br>
+			</div>
+			<div class="form-group">
+				<label asp-for="Duration"></label>
+				<span asp-validation-for="Duration" class="error"></span><br><br>
+				<input type="number" asp-for="Duration">
+				<select asp-for="Duration">
+					<option value="Minutes">Minutes</option>
+					<option value="Hours">Hours</option>
+					<option value="Days">Days</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label asp-for="Timetype"></label>
+				<input type="text" asp-for="Timetype">
+				<span asp-validation-for="Timetype" class="error"></span><br><br>
+			</div>
+			<div class="form-group">
+				<label asp-for="Description"></label>
+				<input asp-for="Description">
+				<span asp-validation-for="Description" class="error"></span><br><br>
+			</div>
+			<button type="submit">Create Activity</button>
+		</form>
+	</div>
+</body>
+
+</html>

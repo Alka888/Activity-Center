@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+
+<body>
+	@using beltExam.Models
+	@model Activity
+
+
+	<div id="top">
+		<h1 class="top">Dojo Activity Center</h1>
+		<h3 class="top">Welcome, <span class="error">@ViewBag.User</span></h3>
+		<nav>
+			<li><a asp-action="Show">Home</a></li>
+			<li><a asp-action="Logout">Logout</a></li>
+		</nav>
+	</div>
+
+	<h1>Activities</h1>
+
+	<table class="table">
+		<thead>
+			<th>Activity</th>
+			<th>Date and Time</th>
+			<th>Duration</th>
+			<th>Event Coordinator</th>
+			<th>Number of Participants</th>
+			<th>Actions</th>
+		</thead>
+		<tbody>
+			@foreach(var i in ViewBag.AllAct){
+			<tr>
+				<td><a href="/detail/@i.ActivityId">@i.Title</a></td>
+				<td>@i.Date.ToString("MM/dd") at @i.Timetype</td>
+				@if(i.Duration <= 60) { <td>@i.Duration Minutes</td>
+					}
+					else if(i.Duration <= 1440) { int duration=i.Duration/60; <td>@duration Hour(s)</td>
+						}
+						else
+						{
+						int duration = i.Duration/1440;
+						<td>@duration Day(s)</td>
+						}
+						<td>@i.Coordinator</td>
+						<td>@i.UserId</td>
+                    	<td>@i.Users.Count</td>
+                    	<td>@if(i.Users.Count == 0){
+					
+                        <a href="/joinact/@i.ActivityId">Join</a>
+                        }
+						@if(i.Users.Count > 0)
+                        {
+                        int resert = 0;
+                        bool Reservation = false;
+                        @foreach(var y in i.Users){
+                        @if(y.UserId == ViewBag.Userid){
+                        Reservation = true;
+                        resert = y.ActConnectId;
+                        }
+                        }
+                        <a href="/joinact/@i.ActivityId/@ViewBag.UserId">Join</a>
+                        
+						<a href="/cancel/@i.ActivityId">Leave</a>
+                        }
+						
+						<td><a href="/delete/@i.ActivityId">Delete</a></td>
+						
+
+                    </td>
+			</tr>
+			}
+		</tbody>
+	</table>
+
+	<a href="/New"><button type="button" class="btn btn-primary">Add New Activity!</button></a>
+</body>
+
+</html>

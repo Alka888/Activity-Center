@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+@using beltExam.Models
+@model Activity
+<body>
+
+	<h1 class="top">Dojo Activity Center</h1>
+	<div class="row">
+		<h1 class="eight column"></h1>
+		<a href="/Dashboard">Dashboard</a>
+		<a href="/Logout">Logout</a>
+	</div>
+<h3>@ViewBag.CurrentActivity.Title</h3>
+<h3>Event Coodinator: @ViewBag.CurrentActivity.Coordinator</h3>
+<h3>Description:@ViewBag.CurrentActivity.Description</h3>
+
+<h3>Participants: @ViewBag.CurrentActivity.UserId</h3>
+@if(@ViewBag.CurrentActivity.Users.Count > 0) 
+	{
+		<h3>Users:</h3>
+			<ul>
+					@foreach(var users in @ViewBag.CurrentActivity.Users)
+					{
+					<li>@users.User.FirstName @users.User.LastName</li>
+					}
+			</ul>
+	}
+
+
+
+</body>
+
+</html>
